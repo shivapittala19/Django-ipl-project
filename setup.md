@@ -38,7 +38,7 @@ python3 manage.py migrate
 ```
 
 ### Load the data into database 
-
+Place the csv files required in the base folder.-
 ```
 python3 manage.py import_dataset.py
 ```
