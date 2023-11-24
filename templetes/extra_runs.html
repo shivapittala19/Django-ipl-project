@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <script>
+    const chartData = {{data | safe}}
+
+        // Use Highcharts to render the chart
+        Highcharts.chart('chart-container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Extra runs conceded in 2016'
+            },
+            xAxis: {
+                categories: chartData.map(item => item.bowling_team),
+                title: {
+                    text: 'Bowling team'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Extra runs'
+                }
+            },
+            series: [{
+                name: 'Extra runs',
+                data: chartData.map(item => item.extra_runs)
+            }],
+            accessibility: {
+                enabled: false 
+            }
+        })
+  </script>
+{% endblock %}

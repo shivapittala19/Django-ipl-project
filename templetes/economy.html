@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <script>
+    const chartData = {{data | safe}}
+
+        Highcharts.chart('chart-container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Top 10 Economical Bowlers'
+            },
+            xAxis: {
+                categories: chartData.map(item => item.bowler),
+                title: {
+                    text: 'Bowler'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Economy Rate'
+                }
+            },
+            series: [{
+                name: 'Economy',
+                data: chartData.map(item => item.economy)
+            }],
+            accessibility: {
+                enabled: false 
+            }
+        })
+  </script>
+{% endblock %}

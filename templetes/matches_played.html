@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <script>
+    const chartData = {{data | safe}}
+
+    Highcharts.chart('chart-container',{
+      chart: {
+        type:'column'
+      },
+      title:{
+        text : 'Total matches played in each season'
+      },
+      xAxis: {
+        categories:chartData.map(item => item.season),
+        title: {
+          text: "Season"
+        }
+      },
+      yAxis: {
+        title: {
+          text:"Number of matches played"
+        }
+      },
+      accessibility: {
+        enabled: false 
+      },
+      series: [{
+        name:"Matches played",
+        data:chartData.map(item => item.num_matches)
+      }]
+    })
+  </script>
+{% endblock %}

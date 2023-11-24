@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+
+    const charData = {{ data | safe}}
+
+    var seasons = Object.keys(charData);
+    var teams = Array.from(new Set(Object.values(charData).flatMap(Object.keys)));
+    
+    var seriescharData = teams.map(function(team, index) {
+        return {
+            name: team,
+            data: seasons.map(function(season) {
+                return charData[season][team] || 0;
+            }),
+            color: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length]
+        };
+    });
+
+    Highcharts.chart('chart-container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Number of matches won by each team in each season'
+        },
+        xAxis: {
+            categories: seasons,
+            title: {
+                text: 'Season'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Number of matches won'
+            }
+        },
+        series: seriescharData
+    });
+      
+    
+</script>
+  
+{% endblock  %}
