@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 
 class Matches(models.Model):
-    id = models.IntegerField(primary_key=True)
     season = models.IntegerField()
     city = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateField(auto_now=False)

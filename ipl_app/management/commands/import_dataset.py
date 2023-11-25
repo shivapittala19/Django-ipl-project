@@ -22,6 +22,7 @@ class Command(BaseCommand):
         with open('matches.csv', 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
+                row.pop('id')
                 Matches.objects.create(**row)
                 
         self.stdout.write(self.style.SUCCESS('Matches imported successfully.'))
