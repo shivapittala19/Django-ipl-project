@@ -9,9 +9,11 @@ from django.db.models import Count, Sum, F, Case, When
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import viewsets
 
 #In app imports
 from .models import Matches, Deliveries
+from .serializers import MatchesSerializer, DeliverySerializer
 
 # Create your views here.
 
@@ -108,4 +110,21 @@ class PlotMatchesWonView(APIView):
             'matches_won.html',
             {'data':data['number_of_matches_won']}
         )
-        
+
+class MatchesViewSet(viewsets.ModelViewSet):
+    queryset = Matches.objects.all()
+    serializer_class = MatchesSerializer
+    lookup_field = "pk"
+
+    @swagger_auto_schema(responses={200: 'OK'}, tags=["matches"])
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+class DeliveriesViewSet(viewsets.ModelViewSet):
+    queryset = Deliveries.objects.all()
+    serializer_class = DeliverySerializer
+    lookup_field = "pk"
+    
+    @swagger_auto_schema(responses={200: 'OK'}, tags=["deliveries"])
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
