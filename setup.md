@@ -63,3 +63,5 @@ In web browser open url
 http://localhost:8000/api/v1/swagger/schema/
 ```
 It will be give the API documentation of the project now you can run the respective url to test.
+
+Changing the code to just demo
